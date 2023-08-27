@@ -7,7 +7,7 @@ This extension is based on the following
 https://github.com/dwyer/chromnitweet
 
 INSTALLATION
-- get an access token that allows posting notes
+- get an access token (post notes, show channels)
 - rename setting.example.js setting.js and fill fields
 - download icon.png from https://misskey-hub.net/appendix/assets.html
 
@@ -26,6 +26,19 @@ chromnitweetを参考にしています(2018年以降更新されてないよう
 https://github.com/dwyer/chromnitweet
 
 インストール手順
-- ノートの投稿権限があるアクセストークンを取得します
+- ノートの投稿権限とチャンネルの閲覧権限があるアクセストークンを取得します
 - setting.example.js を setting.js に名称変更し、サーバ名とアクセストークンを埋めます
 - https://misskey-hub.net/appendix/assets.html からicon.pngをダウンロードします
+
+ノート
+- Omniboxに「tw(スペース)」と入力
+- 投稿したい内容を入力
+- エンターで投稿
+
+チャンネルにノート
+- チャンネルをお気に入りしておく
+- Omniboxに「tw(スペース)」と入力
+- 「ch」と入力
+- 矢印上下でチャンネルを選択
+- 「channelId:***,text:」の続きに投稿したい内容を入力
+- エンターで投稿

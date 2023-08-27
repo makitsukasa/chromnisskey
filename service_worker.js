@@ -1,5 +1,9 @@
 importScripts('setting.js');
 
+chrome.omnibox.onInputEntered.addListener(post_note);
+chrome.omnibox.onInputChanged.addListener(suggest_channel);
+chrome.omnibox.setDefaultSuggestion({description: "create public note"});
+
 // notify chromnitweet
 // https://github.com/dwyer/chromnitweet/blob/master/background.js
 function notify(title, message){
@@ -16,24 +20,28 @@ function notify(title, message){
 	});
 }
 
-chrome.omnibox.onInputEntered.addListener(text => {
-	post_note(text);
-});
-
 // https://blog.shahednasser.com/register-a-keyword-in-chrome-omnibox-in-your-extension/
 function post_note(text){
+	channelId = null;
+	match = text.match(/^channelId\:([0-9a-zA-Z]+)\,text\:(.*)/);
+	if (match) {
+		channelId = match[1];
+		text = match[2];
+	}
+
 	fetch(SERVER + "/api/notes/create", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({
 			"i": ACCESS_TOKEN,
+			"channelId": channelId,
 			"text": text
 		}),
 	})
 	.then((response) => {
-		response.text()
+		response.json()
 		.then(content => {
-			notify("succeed", JSON.parse(content)["createdNote"]["text"]);
+			notify("succeed", content["createdNote"]["text"]);
 			console.log(content);
 		})
 		.catch(error => {
@@ -46,4 +54,38 @@ function post_note(text){
 		console.log(error);
 	});
 	return true;
+}
+
+function suggest_channel(text, suggest) {
+	if (text != "ch") return;
+
+	fetch(SERVER + "/api/channels/my-favorites", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			"i": ACCESS_TOKEN
+		}),
+	})
+	.then((response) => {
+		response.json()
+		.then(content => {
+			suggests = [];
+			for (let i in content) {
+				console.log(content[i]["id"], content[i]["name"]);
+				suggests.push({
+					content: `channelId:${content[i]["id"]},text:`,
+					description: `channel:${content[i]["name"]}(${content[i]["id"]})`,
+				});
+			}
+			suggest(suggests);
+		})
+		.catch(error => {
+			notify("opps", "something wrong");
+			console.log(error)
+		});
+	})
+	.catch(error => {
+		notify("opps", "something wrong");
+		console.log(error);
+	});
 }
