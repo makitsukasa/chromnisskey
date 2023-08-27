@@ -1,0 +1,31 @@
+chromnisskey is a Google Chrome extension that acts as a Misskey client,
+allowing the user to post note directly from
+the Omnibox(Omnibar, awesome bar, URL bar, location bar, etc.)
+with the syntax "tw [some string]".
+
+This extension is based on the following
+https://github.com/dwyer/chromnitweet
+
+INSTALLATION
+get an access token that allows posting notes
+rename setting.example.js setting.js and fill fields
+download icon.png from https://misskey-hub.net/appendix/assets.html
+
+GITHUB
+https://github.com/makitsukasa/chromnisskey
+
+AUTHOR
+https://misskey.io/@makitsukasa
+
+
+chromnisskeyはOmnibox(Chromeの検索バー、アドレスバー)から
+misskeyにノートが投稿できる拡張機能です。
+Omniboxに「tw(スペース)(投稿したい内容)」と入力し、エンターで投稿できます。
+
+chromnitweetを参考にしています(2018年以降更新されてないようです)
+https://github.com/dwyer/chromnitweet
+
+インストール手順
+ノートの投稿権限があるアクセストークンを取得します
+setting.example.js を setting.js に名称変更し、サーバ名とアクセストークンを埋めます
+https://misskey-hub.net/appendix/assets.html からicon.pngをダウンロードします

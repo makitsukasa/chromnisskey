@@ -1,0 +1,19 @@
+{
+	"name": "chromnisskey",
+	"version": "1.0.0",
+	"manifest_version": 3,
+	"description": "chromnisskey[chrome + omni + misskey] note misskey from omni bar",
+	"permissions":[
+		"tabs",
+		"notifications"
+	],
+	"host_permissions":[
+		"https://api.excelapi.org/"
+	],
+	"background": {
+		"service_worker":"service_worker.js"
+	},
+	"omnibox": {
+		"keyword": "tw"
+	}
+}
