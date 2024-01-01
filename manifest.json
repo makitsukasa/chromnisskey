@@ -8,8 +8,11 @@
 		"notifications"
 	],
 	"host_permissions":[
-		"https://api.excelapi.org/"
 	],
+	"content_scripts": [{
+		"matches": ["https://twitter.com/compose/tweet?chromnisskey=true&text=*"],
+		"js": ["twitter_autopost.js"]
+	}],
 	"background": {
 		"service_worker":"service_worker.js"
 	},
