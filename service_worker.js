@@ -29,11 +29,11 @@ function post_note(text){
 		text = match[2];
 	}
 
-	fetch(SERVER + "/api/notes/create", {
+	fetch(MISSKEY_SERVER + "/api/notes/create", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({
-			"i": ACCESS_TOKEN,
+			"i": MISSKEY_ACCESS_TOKEN,
 			"channelId": channelId,
 			"text": text
 		}),
@@ -53,17 +53,23 @@ function post_note(text){
 		notify("opps", "something wrong");
 		console.log(error);
 	});
+
+	// open twitter page
+	if (USE_TWITTER) {
+		chrome.tabs.create({'url': TWITTER_URL + text});
+	}
+
 	return true;
 }
 
 function suggest_channel(text, suggest) {
 	if (text != "ch") return;
 
-	fetch(SERVER + "/api/channels/my-favorites", {
+	fetch(MISSKEY_SERVER + "/api/channels/my-favorites", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({
-			"i": ACCESS_TOKEN
+			"i": MISSKEY_ACCESS_TOKEN
 		}),
 	})
 	.then((response) => {
