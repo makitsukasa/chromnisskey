@@ -55,7 +55,7 @@ function post_note(text){
 	});
 
 	// open twitter page
-	if (USE_TWITTER) {
+	if (!CHANNELS_DENYLIST.includes(channelId) && USE_TWITTER) {
 		chrome.tabs.create({'url': TWITTER_URL + text});
 	}
 
